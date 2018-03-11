@@ -31,7 +31,7 @@ const login = (request, response) => {
     if (err || !account) {
       return res.status(401).json({ error: 'Wrong username or password' });
     }
-    
+
     req.session.account = Account.AccountModel.toAPI(account);
 
     return res.json({ redirect: '/maker' });
