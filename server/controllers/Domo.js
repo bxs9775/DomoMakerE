@@ -3,7 +3,13 @@ const models = require('../models');
 const Domo = models.Domo;
 
 const makerPage = (req, res) => {
-  res.render('app');
+  Domo.DomoModel.findByOwner(req.session.account._id, (err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occured' });
+    }
+    return res.render('app', { domos: docs });
+  });
 };
 
 const makeDomo = (req, res) => {
