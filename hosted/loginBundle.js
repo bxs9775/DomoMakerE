@@ -19,7 +19,7 @@ var handleLogin = function handleLogin(e) {
 
   console.log($("input[name=_csrf]").val());
 
-  sendAjax('POST', $("#loginForm").attr("action"), $("loginForm").serialize(), redirect);
+  sendAjax('POST', $("#loginForm").attr("action"), $("#loginForm").serialize(), redirect);
 
   return false;
 };
@@ -35,12 +35,12 @@ var handleSignup = function handleSignup(e) {
     return false;
   }
 
-  if ($("#pass").val() !== $("pass2").val()) {
+  if ($("#pass").val() !== $("#pass2").val()) {
     handleError("RAWR! Passwords do not match");
     return false;
   }
 
-  sendAjax('POST', $("signupForm").attr("action"), $("#signupForm").serialize(), redirect);
+  sendAjax('POST', $("#signupForm").attr("action"), $("#signupForm").serialize(), redirect);
 
   return false;
 };
@@ -107,12 +107,12 @@ var SignupWindow = function SignupWindow(props) {
 
 // Renders the Login Window
 var createLoginWindow = function createLoginWindow(csrf) {
-  ReactDOM.render(React.createElement(LoginWindow, { csrf: csrf }), document.querySelector("content"));
+  ReactDOM.render(React.createElement(LoginWindow, { csrf: csrf }), document.querySelector("#content"));
 };
 
 // Renders the Signup Window
 var createSignupWindow = function createSignupWindow(csrf) {
-  ReactDOM.render(React.createElement(SignupWindow, { csrf: csrf }), document.querySelector("content"));
+  ReactDOM.render(React.createElement(SignupWindow, { csrf: csrf }), document.querySelector("#content"));
 };
 
 //Sets up event listeners and takes the user to the login 'page'
@@ -144,7 +144,7 @@ $(document).ready(function () {
 //Handles error by displaying it on the page.
 var handleError = function handleError(message) {
   $("#errorMessage").text(message);
-  $("domoMessage").animate({ width: 'toggle' }, 350);
+  $("#domoMessage").animate({ width: 'toggle' }, 350);
 };
 
 //Redirects the client to the given page.

@@ -17,7 +17,7 @@ const handleLogin = (e) => {
   
   console.log($("input[name=_csrf]").val());
   
-  sendAjax('POST', $("#loginForm").attr("action"), $("loginForm").serialize(), redirect);
+  sendAjax('POST', $("#loginForm").attr("action"), $("#loginForm").serialize(), redirect);
   
   return false;
 };
@@ -33,12 +33,12 @@ const handleSignup = (e) => {
     return false;
   }
   
-  if($("#pass").val() !== $("pass2").val()) {
+  if($("#pass").val() !== $("#pass2").val()) {
     handleError("RAWR! Passwords do not match");
     return false;
   }
   
-  sendAjax('POST', $("signupForm").attr("action"), $("#signupForm").serialize(), redirect);
+  sendAjax('POST', $("#signupForm").attr("action"), $("#signupForm").serialize(), redirect);
   
   return false;
 };
@@ -87,7 +87,7 @@ const SignupWindow = (props) => {
 const createLoginWindow = (csrf) => {
   ReactDOM.render(
     <LoginWindow csrf={csrf} />,
-    document.querySelector("content")
+    document.querySelector("#content")
   );
 };
 
@@ -95,7 +95,7 @@ const createLoginWindow = (csrf) => {
 const createSignupWindow = (csrf) => {
   ReactDOM.render(
     <SignupWindow csrf={csrf} />,
-    document.querySelector("content")
+    document.querySelector("#content")
   );
 };
 
