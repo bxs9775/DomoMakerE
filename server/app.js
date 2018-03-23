@@ -10,6 +10,7 @@ const expressHandlebars = require('express-handlebars');
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
 const url = require('url');
+const csrf = require('csrf');
 
 // sets the port for the server to use
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
