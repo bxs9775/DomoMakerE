@@ -2,6 +2,7 @@ const models = require('../models');
 
 const Domo = models.Domo;
 
+// Sends the main app/maker page to client
 const makerPage = (req, res) => {
   Domo.DomoModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
@@ -12,6 +13,7 @@ const makerPage = (req, res) => {
   });
 };
 
+// Handles making a new domo object and sending it to the database
 const makeDomo = (req, res) => {
   if (!req.body.name || !req.body.age) {
     return res.status(400).json({ error: 'RAWR! Both name and age are required' });
@@ -40,5 +42,22 @@ const makeDomo = (req, res) => {
   return domoPromise;
 };
 
+// Retrieves a list of the current user's domos from the database
+const getDomos = (request, response) => {
+  const req = request;
+  const res = response;
+
+  return Domo.DomoModel.findByOwner(req.session.account._id, (err, docs) => {
+    if (err) {
+      console.log(err);
+
+      return res.status(400).json({ error: 'An error occured.' });
+    }
+
+    return res.json({ domos: docs });
+  });
+};
+
 module.exports.makerPage = makerPage;
 module.exports.make = makeDomo;
+module.exports.getDomos = getDomos;

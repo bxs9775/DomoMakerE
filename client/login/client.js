@@ -1,9 +1,3 @@
-const getToken = () => {
-  sendAjax('GET','/getToken', null, (result) => {
-    setup(result.csrfToken);
-  })
-}
-
 // Handles the login process
 const handleLogin = (e) => {
   e.preventDefault();

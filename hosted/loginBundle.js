@@ -1,10 +1,4 @@
-'use strict';
-
-var getToken = function getToken() {
-  sendAjax('GET', '/getToken', null, function (result) {
-    setup(result.csrfToken);
-  });
-};
+"use strict";
 
 // Handles the login process
 var handleLogin = function handleLogin(e) {
@@ -48,60 +42,60 @@ var handleSignup = function handleSignup(e) {
 // Creates the login screen for the client
 var LoginWindow = function LoginWindow(props) {
   return React.createElement(
-    'form',
-    { id: 'loginForm', name: 'loginForm',
+    "form",
+    { id: "loginForm", name: "loginForm",
       onSubmit: handleLogin,
-      action: '/login',
-      method: 'POST',
-      className: 'mainForm'
+      action: "/login",
+      method: "POST",
+      className: "mainForm"
     },
     React.createElement(
-      'label',
-      { htmlFor: 'username' },
-      'Username: '
+      "label",
+      { htmlFor: "username" },
+      "Username: "
     ),
-    React.createElement('input', { id: 'user', type: 'text', name: 'username', placeholder: 'username' }),
+    React.createElement("input", { id: "user", type: "text", name: "username", placeholder: "username" }),
     React.createElement(
-      'label',
-      { htmlFor: 'pass' },
-      'Password: '
+      "label",
+      { htmlFor: "pass" },
+      "Password: "
     ),
-    React.createElement('input', { id: 'pass', type: 'text', name: 'pass', placeholder: 'password' }),
-    React.createElement('input', { type: 'hidden', name: '_csrf', value: props.csrf }),
-    React.createElement('input', { className: 'formSubmit', type: 'submit', value: 'Sign In' })
+    React.createElement("input", { id: "pass", type: "text", name: "pass", placeholder: "password" }),
+    React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
+    React.createElement("input", { className: "formSubmit", type: "submit", value: "Sign In" })
   );
 };
 
 // Creates the signup screen for the client
 var SignupWindow = function SignupWindow(props) {
   return React.createElement(
-    'form',
-    { id: 'signupForm', name: 'signupForm',
+    "form",
+    { id: "signupForm", name: "signupForm",
       onSubmit: handleSignup,
-      action: '/signup',
-      method: 'POST',
-      className: 'mainForm'
+      action: "/signup",
+      method: "POST",
+      className: "mainForm"
     },
     React.createElement(
-      'label',
-      { htmlFor: 'username' },
-      'Username: '
+      "label",
+      { htmlFor: "username" },
+      "Username: "
     ),
-    React.createElement('input', { id: 'user', type: 'text', name: 'username', placeholder: 'username' }),
+    React.createElement("input", { id: "user", type: "text", name: "username", placeholder: "username" }),
     React.createElement(
-      'label',
-      { htmlFor: 'pass' },
-      'Password: '
+      "label",
+      { htmlFor: "pass" },
+      "Password: "
     ),
-    React.createElement('input', { id: 'pass', type: 'text', name: 'pass', placeholder: 'password' }),
+    React.createElement("input", { id: "pass", type: "text", name: "pass", placeholder: "password" }),
     React.createElement(
-      'label',
-      { htmlFor: 'pass2' },
-      'Password: '
+      "label",
+      { htmlFor: "pass2" },
+      "Password: "
     ),
-    React.createElement('input', { id: 'pass2', type: 'text', name: 'pass2', placeholder: 'retype password' }),
-    React.createElement('input', { type: 'hidden', name: '_csrf', value: props.csrf }),
-    React.createElement('input', { className: 'formSubmit', type: 'submit', value: 'Sign Up' })
+    React.createElement("input", { id: "pass2", type: "text", name: "pass2", placeholder: "retype password" }),
+    React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
+    React.createElement("input", { className: "formSubmit", type: "submit", value: "Sign Up" })
   );
 };
 
@@ -139,7 +133,14 @@ var setup = function setup(csrf) {
 $(document).ready(function () {
   getToken();
 });
-"use strict";
+'use strict';
+
+// Get a Cross Site Request Forgery(csrf) token
+var getToken = function getToken() {
+  sendAjax('GET', '/getToken', null, function (result) {
+    setup(result.csrfToken);
+  });
+};
 
 //Handles error by displaying it on the page.
 var handleError = function handleError(message) {

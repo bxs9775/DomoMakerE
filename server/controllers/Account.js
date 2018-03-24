@@ -2,15 +2,18 @@ const models = require('../models');
 
 const Account = models.Account;
 
+// Sends the login page to the client
 const loginPage = (req, res) => {
   res.render('login', { csrfToken: req.csrfToken() });
 };
 
+// Ends the current session and sends the user to the login page
 const logout = (req, res) => {
   req.session.destroy();
   res.redirect('/');
 };
 
+// Logs the user in and takes them to the app page
 const login = (request, response) => {
   const req = request;
   const res = response;
@@ -34,6 +37,7 @@ const login = (request, response) => {
   });
 };
 
+// Processes a new user account
 const signup = (request, response) => {
   const req = request;
   const res = response;
@@ -82,6 +86,7 @@ const signup = (request, response) => {
   });
 };
 
+// Requests and retrieves a new csrf token
 const getToken = (request, response) => {
   const req = request;
   const res = response;
