@@ -111,6 +111,7 @@ var createSignupWindow = function createSignupWindow(csrf) {
 
 //Sets up event listeners and takes the user to the login 'page'
 var setup = function setup(csrf) {
+  console.log("Login setup called.");
   var signupButton = document.querySelector("#signupButton");
   var loginButton = document.querySelector("#loginButton");
 
@@ -131,14 +132,15 @@ var setup = function setup(csrf) {
 
 //Runs setup when the document is opened.
 $(document).ready(function () {
-  getToken();
+  getToken(setup, {});
 });
 'use strict';
 
 // Get a Cross Site Request Forgery(csrf) token
-var getToken = function getToken() {
+var getToken = function getToken(callback, data) {
+  //console.log("Token called.");
   sendAjax('GET', '/getToken', null, function (result) {
-    setup(result.csrfToken);
+    callback(result.csrfToken, data);
   });
 };
 

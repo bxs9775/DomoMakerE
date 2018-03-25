@@ -63,6 +63,63 @@ const getDomos = (request, response) => {
   });
 };
 
+// Updates an existing Domo
+const updateDomo = (request, response) => {
+  const req = request;
+  const res = response;
+
+  if (!req.body._id) {
+    return res.status(400).json({ error: 'Request requires a domoId value.' });
+  }
+
+  return Domo.DomoModel.findByID(req.body._id, (err, docs) => {
+    if (err) {
+      console.log(err);
+
+      return res.status(400).json({ error: 'An error occured.' });
+    }
+
+    // console.log(docs);
+
+    if (docs.owner.toString() !== req.session.account._id) {
+      return res.status(403).json({ error: 'You can\'t edit domos you don\'t own!' });
+    }
+    const tempDomo = docs;
+    // update domo values
+    if (req.body.name) {
+      tempDomo.name = req.body.name;
+    }
+
+    if (req.body.age) {
+      // Check correct value?
+      tempDomo.age = req.body.age;
+    }
+
+    if (req.body.favoriteFood) {
+      tempDomo.favoriteFood = req.body.favoriteFood;
+    }
+
+    if (req.body.leastFavoriteFood) {
+      tempDomo.leastFavoriteFood = req.body.leastFavoriteFood;
+    }
+
+    tempDomo.updatedDate = Date.now();
+
+    // handle save promise
+    const updatePromise = tempDomo.save();
+
+    updatePromise.then(() => res.status(204).send(''));
+
+    updatePromise.catch((e) => {
+      console.log(e);
+
+      return res.status(400).json({ error: 'An error occured.' });
+    });
+    return updatePromise;
+  });
+};
+
 module.exports.makerPage = makerPage;
 module.exports.make = makeDomo;
 module.exports.getDomos = getDomos;
+module.exports.updateDomo = updateDomo;

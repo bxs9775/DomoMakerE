@@ -1,7 +1,8 @@
 // Get a Cross Site Request Forgery(csrf) token
-const getToken = () => {
+const getToken = (callback,data) => {
+  //console.log("Token called.");
   sendAjax('GET','/getToken', null, (result) => {
-    setup(result.csrfToken);
+    callback(result.csrfToken,data);
   })
 };
 

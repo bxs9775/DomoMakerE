@@ -95,6 +95,7 @@ const createSignupWindow = (csrf) => {
 
 //Sets up event listeners and takes the user to the login 'page'
 const setup = (csrf) => {
+  console.log("Login setup called.");
   const signupButton = document.querySelector("#signupButton");
   const loginButton = document.querySelector("#loginButton");
   
@@ -115,5 +116,5 @@ const setup = (csrf) => {
 
 //Runs setup when the document is opened.
 $(document).ready(function() {
-  getToken();
+  getToken(setup,{});
 });
