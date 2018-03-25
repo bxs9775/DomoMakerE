@@ -19,9 +19,14 @@ const makeDomo = (req, res) => {
     return res.status(400).json({ error: 'RAWR! Both name and age are required' });
   }
 
+  const favoriteFood = req.body.favoriteFood || 'unknown';
+  const leastFavoriteFood = req.body.leastFavoriteFood || 'unknown';
+
   const domoData = {
     name: req.body.name,
     age: req.body.age,
+    favoriteFood,
+    leastFavoriteFood,
     owner: req.session.account._id,
   };
 

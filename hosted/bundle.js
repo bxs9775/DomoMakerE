@@ -7,7 +7,7 @@ var handleDomo = function handleDomo(e) {
   $("#domoMessage").animate({ width: 'hide' }, 350);
 
   if ($("#domoName").val() == '' || $("#domoAge").val() == '') {
-    handleError("RAWR! All feilds are required");
+    handleError("RAWR! Name and age are required");
     return false;
   }
 
@@ -41,6 +41,18 @@ var DomoForm = function DomoForm(props) {
       "Age: "
     ),
     React.createElement("input", { id: "domoAge", type: "text", name: "age", placeholder: "Domo Age" }),
+    React.createElement(
+      "label",
+      { htmlFor: "favoriteFood" },
+      "Likes food: "
+    ),
+    React.createElement("input", { id: "favFood", type: "text", name: "favoriteFood", placeholder: "unknown" }),
+    React.createElement(
+      "label",
+      { htmlFor: "leastFavoriteFood" },
+      "Dislikes food: "
+    ),
+    React.createElement("input", { id: "leastFavFood", type: "text", name: "leastFavoriteFood", placeholder: "unknown" }),
     React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
     React.createElement("input", { className: "makeDomoSubmit", type: "submit", value: "Make Domo" })
   );
@@ -74,8 +86,20 @@ var DomoList = function DomoList(props) {
       React.createElement(
         "h3",
         { className: "domoAge" },
-        " age: ",
+        " Age: ",
         domo.age
+      ),
+      React.createElement(
+        "h4",
+        null,
+        "Favorite Food: ",
+        domo.favoriteFood
+      ),
+      React.createElement(
+        "h4",
+        null,
+        "Least Favorite Food: ",
+        domo.leastFavoriteFood
       )
     );
   });
@@ -90,6 +114,7 @@ var DomoList = function DomoList(props) {
 // Ajax request to get a list of Domos from the server
 var loadDomosFromServer = function loadDomosFromServer() {
   sendAjax('GET', '/getDomos', null, function (data) {
+    //console.dir(data);
     ReactDOM.render(React.createElement(DomoList, { domos: data.domos }), document.querySelector("#domos"));
   });
 };
